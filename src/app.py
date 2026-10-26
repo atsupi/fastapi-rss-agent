@@ -1,6 +1,8 @@
 import os
 import feedparser
 import uvicorn
+from pydantic import BaseModel, Field
+from typing import Optional
 from fastapi import FastAPI, Request
 from strands import Agent, tool
 from dotenv import load_dotenv
@@ -43,13 +45,16 @@ rss_agent = Agent(
 # 3. FastAPIサーバーの定義
 app = FastAPI()
 
+# リクエストボディの構造を定義するPydanticモデル
+class AgentInvocationRequest(BaseModel):
+    prompt: Optional[str] = Field(None, description="エージェントへの指示")
+    message: Optional[str] = Field(None, description="プロンプトの代替フィールド")
+
 @app.post("/invocations")
-def handle_agent_invocation(request: Request):
-    import asyncio
-    payload = asyncio.run(request.json()) if asyncio.iscoroutinefunction(request.json) else request._json
-    prompt = payload.get("prompt") or payload.get("message", "")
+def handle_agent_invocation(request_data: AgentInvocationRequest):
+    prompt = request_data.prompt or request_data.message or ""
     response = rss_agent(prompt)
     return {"output": str(response)}
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run("src.app:app", host="127.0.0.1", port=8000, reload=True)
