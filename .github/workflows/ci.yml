@@ -25,13 +25,19 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Ruffによる静的解析
-      - name: Run Ruff Check
+      # 1. 構文チェックと並び替えを自動修正（--fix）
+      - name: Run Ruff Check & Fix
         run: uv run ruff check . --fix
 
-      # Ruffによるフォーマットチェック
-      - name: Run Ruff Format
-        run: uv run ruff format --check .
+      # 2. コードの見栄え（空行や折り返し）を自動修正
+      - name: Run Ruff Format Apply
+        run: uv run ruff format .
+
+      # 3. 最後に、完全にクリーンになったか最終確認
+      - name: Verify Lint & Format
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
 
   test:
     name: Run Tests (pytest)
