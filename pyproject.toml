@@ -7,7 +7,14 @@ dependencies = [
     "dotenv>=0.9.9",
     "fastapi>=0.161.1",
     "feedparser>=6.0.14",
+    "pytest>=9.1.1",
     "requests>=2.34.2",
+    "ruff>=0.17.3",
     "strands-agents>=1.62.0",
     "uvicorn>=0.54.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = ["test_*.py", "*_test.py"]
+pythonpath = ["."]
