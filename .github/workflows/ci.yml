@@ -60,6 +60,6 @@ jobs:
         env:
           MODEL_ID: "jp.anthropic.claude-sonnet-4-6"
           # 必要に応じてモック用の環境変数やテスト用AWSリージョンをここに定義
-          AWS_DEFAULT_REGION: "us-west-2"
+          AWS_DEFAULT_REGION: "ap-northeast-1"
         run: |
           PYTHONPATH=. uv run pytest
