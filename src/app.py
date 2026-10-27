@@ -39,7 +39,7 @@ rss_agent = Agent(
     ##model="anthropic.claude-3-5-sonnet-20241022-v1:0",
     model=MODEL_ID,
     tools=[fetch_rss_feed],
-    system_prompt="あなたはRSSフィードを取得してまとめるニュースアシスタントです。",
+    system_prompt="あなたはRSSフィードを取得してまとめるニュースアシスタントです。"
 )
 
 # 3. FastAPIサーバーの定義
