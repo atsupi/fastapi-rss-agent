@@ -13,3 +13,8 @@ dependencies = [
     "strands-agents>=1.62.0",
     "uvicorn>=0.54.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = ["test_*.py", "*_test.py"]
+pythonpath = ["."]
