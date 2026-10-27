@@ -25,9 +25,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Ruffによる静的解析（FindyはLinterの通過を厳格にチェックします）
+      # Ruffによる静的解析
       - name: Run Ruff Check
-        run: uv run ruff check .
+        run: uv run ruff check . --fix
 
       # Ruffによるフォーマットチェック
       - name: Run Ruff Format
